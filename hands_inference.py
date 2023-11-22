@@ -13,10 +13,10 @@ from blazehand_landmark import BlazeHandLandmark
 
 from visualization import draw_detections, draw_landmarks, draw_roi, HAND_CONNECTIONS
 
-
-PATH_TO_HAND_DETECTION_MODEL = "/Users/rach3project/Repos/MediaPipePyTorch/blazepalm.pth"
-PATH_TO_SSD_ANCHORS = "/Users/rach3project/Repos/MediaPipePyTorch/anchors_palm.npy"
-PATH_TO_HAND_LANDMARK_MODEL = "/Users/rach3project/Repos/MediaPipePyTorch/blazehand_landmark.pth"
+here = os.path.dirname(os.path.abspath(__file__))
+PATH_TO_HAND_DETECTION_MODEL = os.path.join(here, "blazepalm.pth")
+PATH_TO_SSD_ANCHORS = os.path.join(here, "anchors_palm.npy")
+PATH_TO_HAND_LANDMARK_MODEL = os.path.join(here, "blazehand_landmark.pth")
 
 
 gpu = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
