@@ -67,13 +67,14 @@ def main(inp_dir, out_dir, save_output=True, inference_mode='Image'):
         for f in os.listdir(inp_dir):
             if f.endswith(".jpg") or f.endswith(".png"):
 
-                img = cv2.imread(os.path.join(inp_dir, f))
+                img = cv2.cvtColor(cv2.imread(os.path.join(inp_dir, f), cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
                 palm_detections, xc, yc, scale, theta = palm_detection(img)
                 
 
                 #img = draw_roi(img, xc, yc, scale, theta)
                 img = draw_detections(img, palm_detections)
                 if save_output:
+                    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                     cv2.imwrite(os.path.join(out_dir, f), img)
                 #print(palm_detections)
                 print("Processed file: {}".format(f), end='\r')
