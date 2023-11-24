@@ -62,7 +62,7 @@ def main(img_dir, show=True, save_dir=None):
             img = cv2.cvtColor(cv2.imread(os.path.join(img_dir, imgpath)), cv2.COLOR_BGR2RGB)
             detections = model_inference(img)
             #detections, box = model_inference(img)
-            draw_detections(img, detections)
+            draw_detections(img, detections, with_keypoints=True, with_scores=True)
             #draw_roi(img, box)
             
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
