@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import torch
 
-def draw_detections(img, detections, with_keypoints=True):
+def draw_detections(img, detections, with_keypoints=True, with_scores=False):
     if isinstance(detections, torch.Tensor):
         detections = detections.cpu().numpy()
 
@@ -26,6 +26,10 @@ def draw_detections(img, detections, with_keypoints=True):
                 kp_x = int(detections[i, 4 + k*2    ])
                 kp_y = int(detections[i, 4 + k*2 + 1])
                 cv2.circle(img, (kp_x, kp_y), 2, (0, 0, 255), thickness=2)
+
+        if with_scores:
+            cv2.putText(img, str(detections[i, -1]), (int(xmin), int(ymin)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
+            
     return img
 
 
