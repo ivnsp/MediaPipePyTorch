@@ -43,7 +43,7 @@ def resize_pad(img):
     return img1, img2, scale, pad
 
 
-def denormalize_detections(detections, scale, pad):
+def denormalize_detections(detections_and_scores, scale, pad):
     """ maps detection coordinates from [0,1] to image coordinates
 
     The face and palm detector networks take 256x256 and 128x128 images
@@ -60,6 +60,9 @@ def denormalize_detections(detections, scale, pad):
         pad: padding in the x and y dimensions
 
     """
+    # remove the last column of detections which is the score
+    detections = detections_and_scores[:, :-1]
+
     detections[:, 0] = detections[:, 0] * scale * 256 - pad[0]
     detections[:, 1] = detections[:, 1] * scale * 256 - pad[1]
     detections[:, 2] = detections[:, 2] * scale * 256 - pad[0]
@@ -67,7 +70,7 @@ def denormalize_detections(detections, scale, pad):
 
     detections[:, 4::2] = detections[:, 4::2] * scale * 256 - pad[1]
     detections[:, 5::2] = detections[:, 5::2] * scale * 256 - pad[0]
-    return detections
+    return detections_and_scores
 
 
 
