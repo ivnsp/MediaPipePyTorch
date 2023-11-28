@@ -72,7 +72,7 @@ def main(inp_dir, out_dir, save_output=True, inference_mode='Image'):
                 
 
                 #img = draw_roi(img, xc, yc, scale, theta)
-                img = draw_detections(img, palm_detections)
+                img = draw_detections(img, palm_detections, with_scores=True)
                 if save_output:
                     img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
                     cv2.imwrite(os.path.join(out_dir, f), img)
